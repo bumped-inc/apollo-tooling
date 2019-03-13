@@ -60,7 +60,10 @@ export function diagnosticsFromError(
   severity: DiagnosticSeverity,
   type: string
 ): Diagnostic[] {
-  if (!error.nodes) {
+  if (
+    !error.nodes ||
+    /^Variable "\$\w+" is not defined by operation /i.test(error.message)
+  ) {
     return [];
   }
 
